@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>隨機早餐推薦</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .container { display: inline-block; padding: 20px; border: 2px solid #333; border-radius: 10px; }
+        h1 { color: #4CAF50; }
+        p { font-size: 20px; }
+        .price { font-weight: bold; color: #E91E63; }
+        button { font-size: 18px; padding: 10px 20px; margin-top: 20px; cursor: pointer; background-color: #007BFF; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>今日推薦早餐</h1>
+        <p id="breakfast"></p>
+        <p id="drink"></p>
+        <p id="total"></p>
+        <button onclick="generateBreakfast()">換一組</button>
+    </div>
+
+    <script>
+        const breakfastMenu = [
+            { name: "黃金炸豬排套餐", price: 155 },
+            { name: "華夫起司豬排套餐", price: 145 },
+            { name: "經典雞腿排套餐", price: 125 },
+            { name: "起司嫩蛋豬排套餐", price: 120 },
+            { name: "法式香煎雞腿套餐", price: 120 },
+            { name: "雪靴菇起司馬芬套餐", price: 110 },
+            { name: "鐵板燒肉堡套餐", price: 90 }
+        ];
+
+        const drinkMenu = [
+            { name: "紅茶", price: 25 },
+            { name: "無糖綠茶", price: 25 },
+            { name: "大奶茶", price: 30 },
+            { name: "豆漿", price: 25 },
+            { name: "冬瓜茶", price: 25 },
+            { name: "米漿", price: 25 },
+            { name: "百香綠茶", price: 30 },
+            { name: "特大奶茶", price: 35 }
+        ];
+
+        function generateBreakfast() {
+            let selectedBreakfast, selectedDrink;
+            let totalPrice = 0;
+
+            while (true) {
+                selectedBreakfast = breakfastMenu[Math.floor(Math.random() * breakfastMenu.length)];
+                selectedDrink = drinkMenu[Math.floor(Math.random() * drinkMenu.length)];
+                totalPrice = selectedBreakfast.price + selectedDrink.price;
+
+                if (totalPrice <= 150) break;
+            }
+
+            document.getElementById("breakfast").innerHTML = `🍽 <b>${selectedBreakfast.name}</b> - <span class="price">${selectedBreakfast.price} 元</span>`;
+            document.getElementById("drink").innerHTML = `🥤 <b>${selectedDrink.name}</b> - <span class="price">${selectedDrink.price} 元</span>`;
+            document.getElementById("total").innerHTML = `💰 <b>總價: ${totalPrice} 元</b>`;
+        }
+
+        window.onload = generateBreakfast;
+    </script>
+</body>
+</html>
