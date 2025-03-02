@@ -50,6 +50,30 @@
     <script>
         // 餐點資料
         const meals = [
+            // 套餐系列
+            { name: "美式奔牛堡套餐(奔牛+起司+脆皮堡+細薯)", price: 155, isSet: true },
+            { name: "華夫鬆餅套餐(鬆餅+培根+嫩蛋+星星魚塊+生菜沙拉)", price: 145, isSet: true },
+            { name: "美式脆雞堡套餐(辣味咔滋雞腿+脆皮堡+細薯)", price: 130, isSet: true },
+            { name: "美式脆雞堡套餐(原味咔滋雞腿+脆皮堡+細薯)", price: 130, isSet: true },
+            { name: "金蝦黑堡套餐(金蝦排+起司+竹炭堡+細薯)", price: 125, isSet: true },
+            { name: "起飛嫩雞堡套餐(飛力雞排+起司+圓帕堡+細薯)", price: 125, isSet: true },
+            { name: "德式香腸帕瑪森套餐(德式香腸+起司+帕瑪森乾乳酪+細薯)", price: 135, isSet: true },
+            { name: "義式檸檬雞柳麵套餐(檸檬雞柳條+紅醬鐵板麵)", price: 120, isSet: true },
+            { name: "義式檸檬雞柳麵套餐(檸檬雞柳條+白醬鐵板麵)", price: 120, isSet: true },
+            { name: "義式檸檬雞柳麵套餐(檸檬雞柳條+青醬鐵板麵)", price: 120, isSet: true },
+            { name: "沙嗲咖哩麵佐鮮酥雞套餐(原味鮮酥雞+荷包蛋+鐵板麵)", price: 120, isSet: true },
+            { name: "沙嗲咖哩麵佐鮮酥雞套餐(椒麻鮮酥雞+荷包蛋+鐵板麵)", price: 120, isSet: true },
+            { name: "法式香赫帕瑪森套餐(薯泥生菜沙拉+香蒜帕瑪森+火腿+嫩蛋)", price: 120, isSet: true },
+            { name: "歐式薯泥沙拉套餐(薯泥生菜沙拉+燒餅+培根+嫩蛋)", price: 120, isSet: true },
+            { name: "招牌總匯套餐(招牌總匯+細薯)", price: 110, isSet: true },
+            { name: "雙層豬肉起司堡套餐(兩片漢堡肉+起司+漢堡+細薯)", price: 110, isSet: true },
+            { name: "日式醬爆焼肉炒麵套餐(里肌肉+荷包蛋+沙茶鐵板麵)", price: 110, isSet: true },
+            { name: "日式醬爆焼肉炒麵套餐(里肌肉+荷包蛋+蔥燒鐵板麵)", price: 110, isSet: true },
+            { name: "日式醬爆焼肉炒麵套餐(里肌肉+荷包蛋+辣塔香鐵板麵)", price: 110, isSet: true },
+            { name: "嫩煎里肌鐵板麺套餐(里肌肉+荷包蛋+黑胡椒鐵板麵)", price: 100, isSet: true },
+            { name: "嫩煎里肌鐵板麺套餐(里肌肉+荷包蛋+蘑菇鐵板麵)", price: 100, isSet: true },
+            { name: "嫩煎里肌鐵板麺套餐(里肌肉+荷包蛋+咖哩鐵板麵)", price: 100, isSet: true },
+            // 漢堡系列
             { name: "奔牛起司堡", price: 115 },
             { name: "雙層牛肉起司堡", price: 110 },
             { name: "牛肉起司堡", price: 85 },
@@ -72,29 +96,158 @@
             { name: "豬肉蛋堡", price: 50 },
             { name: "培根蛋堡", price: 50 },
             { name: "鮮蔬蛋堡", price: 40 },
-            // 套餐系列（價格已包含20元飲料）
-            { name: "美式脆雞堡套餐(原味)", price: 130 },
-            { name: "金蝦黑堡套餐", price: 125 },
-            { name: "起飛嫩雞堡套餐", price: 125 },
-            { name: "義式檸檬雞柳麵套餐(紅醬)", price: 120 },
-            { name: "招牌總匯套餐", price: 110 },
-            { name: "嫩煎里肌鐵板麺套餐(黑胡椒)", price: 100 }
+            // 烤吐司系列
+            { name: "原味咔滋雞腿總匯", price: 95 },
+            { name: "辣味咔滋雞腿總匯", price: 80 },
+            { name: "里肌總匯", price: 80 },
+            { name: "醬燒雞總匯", price: 80 },
+            { name: "燻雞總匯", price: 80 },
+            { name: "鮪魚總匯", price: 80 },
+            { name: "招牌總匯", price: 80 },
+            { name: "椒麻雞排蛋", price: 75 },
+            { name: "哈辣雞腿蛋", price: 75 },
+            { name: "原味咔滋雞腿蛋", price: 75 },
+            { name: "辣味咔滋雞腿蛋", price: 75 },
+            { name: "厚切雞排蛋", price: 70 },
+            { name: "醬燒雞腿蛋", price: 70 },
+            { name: "里肌蛋", price: 60 },
+            { name: "燻雞蛋/香雞蛋", price: 55 },
+            { name: "薯餅蛋", price: 50 },
+            { name: "培根蛋/火腿蛋", price: 45 },
+            { name: "鮪魚蛋/豬肉蛋", price: 45 },
+            { name: "薯泥沙拉", price: 40 },
+            { name: "肉鬆蛋", price: 40 },
+            { name: "起司蛋", price: 40 },
+            { name: "鮮蔬蛋", price: 35 },
+            // 美味小點
+            { name: "生菜沙拉", price: 60 },
+            { name: "總匯披薩", price: 55 },
+            { name: "夏威夷披薩", price: 55 },
+            { name: "星星魚塊", price: 50 },
+            { name: "薯餅蛋塔", price: 50 },
+            { name: "原味鮮酥雞", price: 50 },
+            { name: "椒麻鮮酥雞", price: 50 },
+            { name: "葱抓餅", price: 45 },
+            { name: "蘿蔔糕", price: 45 },
+            { name: "麻辣雞塊", price: 45 },
+            { name: "雞塊", price: 45 },
+            { name: "小雞球", price: 45 },
+            { name: "細薯", price: 45 },
+            { name: "脆薯", price: 45 },
+            { name: "地瓜薯條", price: 45 },
+            { name: "薯餅", price: 45 },
+            { name: "香蔥吉拿棒", price: 45 },
+            { name: "檸檬雞柳條", price: 40 },
+            { name: "煎餃", price: 40 },
+            { name: "雙色地瓜球", price: 40 },
+            { name: "玉米濃湯(冬季限定)", price: 40 },
+            { name: "薯泥一球", price: 30 },
+            { name: "熱狗", price: 35 },
+            { name: "荷包蛋", price: 15 },
+            // 乳酪餅系列
+            { name: "里肌乳酪餅", price: 75 },
+            { name: "鮪魚乳酪餅", price: 65 },
+            { name: "培根乳酪餅", price: 60 },
+            { name: "鮮蔬乳酪餅", price: 50 },
+            { name: "草莓果醬乳酪餅", price: 35 },
+            { name: "花生果醬乳酪餅", price: 35 },
+            { name: "奶酥果醬乳酪餅", price: 35 },
+            { name: "奶油果醬乳酪餅", price: 35 },
+            { name: "香蒜果醬乳酪餅", price: 35 },
+            { name: "巧克力果醬乳酪餅", price: 35 },
+            { name: "可可奶酥果醬乳酪餅", price: 40 },
+            { name: "抹茶奶酥果醬乳酪餅", price: 40 },
+            // 帕瑪森系列
+            { name: "牛肉起司", price: 105 },
+            { name: "德式香腸", price: 105 },
+            { name: "義式雞腿", price: 95 },
+            { name: "嫩煎里肌", price: 90 },
+            { name: "洋蔥鮪魚", price: 85 },
+            { name: "薯泥沙拉", price: 85 },
+            { name: "火腿/培根", price: 85 },
+            // 鐵板麵加蛋系列
+            { name: "紅醬鐵板麵加蛋", price: 70 },
+            { name: "青醬鐵板麵加蛋", price: 70 },
+            { name: "白醬鐵板麵加蛋", price: 70 },
+            { name: "沙嗲咖哩鐵板麵加蛋", price: 70 },
+            { name: "辣塔香鐵板麵加蛋", price: 70 },
+            { name: "沙茶鐵板麵加蛋", price: 55 },
+            { name: "葱燒鐵板麵加蛋", price: 65 },
+            { name: "蘑菇鐵板麵加蛋", price: 65 },
+            { name: "黑胡椒鐵板麵加蛋", price: 65 },
+            { name: "咖哩鐵板麵加蛋", price: 65 },
+            // 燒餅加蛋系列
+            { name: "哈辣雞腿燒餅加蛋", price: 85 },
+            { name: "義式雞腿燒餅加蛋", price: 80 },
+            { name: "嫩煎里肌燒餅加蛋", price: 75 },
+            { name: "香燻雞排燒餅加蛋", price: 70 },
+            { name: "薯泥沙拉燒餅加蛋", price: 70 },
+            { name: "鮮蔬沙拉燒餅加蛋", price: 65 },
+            // 捲餅加蛋系列
+            { name: "咔滋雞腿捲餅加蛋", price: 90 },
+            { name: "德式香腸捲餅加蛋", price: 90 },
+            { name: "嫩煎里肌捲餅加蛋", price: 85 },
+            { name: "義式雞腿捲餅加蛋", price: 80 },
+            { name: "檸檬雞柳捲餅加蛋", price: 75 },
+            { name: "葫魚/培根捲餅加蛋", price: 75 },
+            { name: "薯泥沙拉捲餅加蛋", price: 70 },
+            // 果醬系列
+            { name: "牛奶糖湯種厚片", price: 50 },
+            { name: "OREO湯種厚片", price: 50 },
+            { name: "草莓果醬厚片", price: 30 },
+            { name: "奶油果醬厚片", price: 30 },
+            { name: "可可奶酥果醬厚片", price: 35 },
+            { name: "花生果醬厚片", price: 30 },
+            { name: "奶酥果醬厚片", price: 30 },
+            { name: "香蒜果醬厚片", price: 30 },
+            { name: "巧克力果醬厚片", price: 30 },
+            { name: "抹茶奶酥果醬厚片", price: 35 },
+            // 鬆餅
+            { name: "鬆餅草莓", price: 40 },
+            { name: "鬆餅蜂蜜", price: 40 },
+            { name: "鬆餅花生", price: 40 },
+            { name: "鬆餅巧克力", price: 40 },
+            // 果醬薄片
+            { name: "草莓果醤薄片", price: 20 },
+            { name: "奶油果醤薄片", price: 20 },
+            { name: "可可奶酥果醤薄片", price: 25 },
+            { name: "花生果醤薄片", price: 20 },
+            { name: "香蒜果醤薄片", price: 20 },
+            { name: "抹茶奶酥果醤薄片", price: 25 },
+            { name: "巧克力果醤薄片", price: 20 },
+            { name: "奶酥果醤薄片", price: 20 },
+            // 蛋餅系列
+            { name: "里肌蛋餅", price: 50 },
+            { name: "燻雞蛋餅", price: 50 },
+            { name: "鮪魚蛋餅", price: 50 },
+            { name: "薯餅蛋餅", price: 50 },
+            { name: "培根蛋餅", price: 45 },
+            { name: "火腿蛋餅", price: 45 },
+            { name: "玉米蛋餅", price: 40 },
+            { name: "熱狗蛋餅", price: 40 },
+            { name: "肉鬆蛋餅", price: 40 },
+            { name: "起司蛋餅", price: 40 },
+            { name: "原味蛋餅", price: 30 }
         ];
 
-        // 飲料資料（僅列出中杯價格，其他杯型根據規則計算）
+        // 飲料資料（中杯價格與杯型增幅規則）
         const drinks = [
-            { name: "紅茶", price: 20, sizeRules: [5, 10] }, // 中杯+5=大杯, 大杯+10=特大杯
+            { name: "紅茶", price: 20, sizeRules: [5, 10] },
             { name: "無糖綠茶", price: 20, sizeRules: [5, 10] },
             { name: "豆漿", price: 20, sizeRules: [5, 10] },
             { name: "米漿", price: 20, sizeRules: [5, 10] },
             { name: "柳橙汁", price: 20, sizeRules: [5, 10] },
+            { name: "百香果汁", price: 20, sizeRules: [5, 10] },
+            { name: "蔓越莓汁", price: 20, sizeRules: [5, 10] },
             { name: "奶茶", price: 25, sizeRules: [5, 10] },
+            { name: "薏仁奶", price: 25, sizeRules: [5, 10] },
             { name: "豆奶茶", price: 25, sizeRules: [15, 5] },
             { name: "鮮奶茶", price: 35, sizeRules: [10, 10] },
             { name: "拿鐵咖啡", price: 60, sizeRules: [10, 10] },
+            { name: "特調咖啡", price: 50, sizeRules: [10, 10] },
             { name: "美式咖啡", price: 45, sizeRules: [10, 10] },
             { name: "鴛鴦奶茶", price: 40, sizeRules: [10, 10] },
-            { name: "鲜奶", price: 55, sizeRules: [0, 0] } // 僅中杯
+            { name: "鮮奶", price: 55, sizeRules: [0, 0] } // 僅中杯
         ];
 
         const sizes = ["中杯", "大杯", "特大杯"];
@@ -106,7 +259,7 @@
         function calculateDrinkPrice(drink, sizeIndex) {
             if (sizeIndex === 0) return drink.price; // 中杯
             if (sizeIndex === 1) return drink.price + drink.sizeRules[0]; // 大杯
-            if (drink.name === "鲜奶") return drink.price; // 鮮奶無大杯或特大杯
+            if (drink.name === "鮮奶") return drink.price; // 鮮奶無大杯或特大杯
             return drink.price + drink.sizeRules[0] + drink.sizeRules[1]; // 特大杯
         }
 
@@ -117,12 +270,11 @@
             do {
                 meal = getRandomItem(meals);
                 drink = getRandomItem(drinks);
-                // 隨機選擇杯型，但鮮奶只有中杯
-                drinkSizeIndex = drink.name === "鲜奶" ? 0 : Math.floor(Math.random() * 3);
+                drinkSizeIndex = drink.name === "鮮奶" ? 0 : Math.floor(Math.random() * 3);
                 totalPrice = meal.price + calculateDrinkPrice(drink, drinkSizeIndex);
 
-                // 套餐已包含20元飲料，若選其他飲料需補差價
-                if (meal.name.includes("套餐")) {
+                // 若為套餐，價格已含20元飲料，需計算飲料差價
+                if (meal.isSet) {
                     const drinkExtra = calculateDrinkPrice(drink, drinkSizeIndex) - 20;
                     totalPrice = meal.price + (drinkExtra > 0 ? drinkExtra : 0);
                 }
