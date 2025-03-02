@@ -3,95 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracle 商業模式總覽</title>
+    <title>隨機早餐選擇器</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; background-color: #f5f5f5; }
-        h1, h2 { color: #333; }
-        nav ul { list-style: none; padding: 0; }
-        nav ul li { display: inline; margin-right: 15px; }
-        a { text-decoration: none; color: #007bff; font-weight: bold; cursor: pointer; }
-        main { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        ul { padding-left: 20px; }
-        .section { display: none; }
-        .active { display: block; }
-    </style>
-    <script>
-        function showSection(id) {
-            document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
         }
-    </script>
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Tracle 垃可 商業模式與系統架構總覽</h1>
-        <nav>
-            <ul>
-                <li><a onclick="showSection('business')">商業模式分析</a></li>
-                <li><a onclick="showSection('system')">系統架構 & 服務流程</a></li>
-                <li><a onclick="showSection('flow')">核心流程圖</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="container">
+        <h1>隨機早餐選擇器</h1>
+        <p>每天早餐總價格不超過 150 元（餐點 + 飲料）</p>
+        <button onclick="generateBreakfast()">換一組</button>
+        <div id="result"></div>
+    </div>
 
-    <main>
-        <!-- 商業模式分析 -->
-        <div id="business" class="section active">
-            <h2>🔹 主要收入來源</h2>
-            <ul>
-                <li>📦 訂閱收費 - 用戶按月/半年/年付費，每週 1-5 次收垃圾</li>
-                <li>🏢 B2B 方案 - 企業、社區、包租代管方案，提供批量優惠</li>
-                <li>🔄 一次性清運 - 搬家、裝潢後大量垃圾清運，按次報價</li>
-                <li>🛍️ 商城銷售 - 綠界商城販售垃圾袋、環保用品</li>
-                <li>🤝 異業合作 - 房產、租屋、物業管理、社區聯盟推廣</li>
-                <li>🎁 會員推薦 - 用戶邀請新客戶，獎勵金或折扣</li>
-            </ul>
-            
-            <h2>🔹 定價策略</h2>
-            <ul>
-                <li>小資方案 - NT$380/月，適用 1-2 人，30 公升/次</li>
-                <li>家庭方案 - NT$560/月，適用 3-5 人，60 公升/次</li>
-                <li>商務方案 - NT$800/月，適用小型辦公，76 公升/次</li>
-                <li>企業方案 - NT$1,080/月，適用大型辦公，152 公升/次</li>
-            </ul>
+    <script>
+        // 餐點資料
+        const meals = [
+            { name: "奔牛起司堡", price: 115 },
+            { name: "雙層牛肉起司堡", price: 110 },
+            { name: "牛肉起司堡", price: 85 },
+            { name: "原味咔滋雞腿蛋堡", price: 80 },
+            { name: "辣味咔滋雞腿蛋堡", price: 80 },
+            { name: "哈辣雞腿蛋堡", price: 80 },
+            { name: "椒麻雞排蛋堡", price: 80 },
+            { name: "起司雞排蛋堡", price: 75 },
+            { name: "厚切雞排蛋堡", price: 75 },
+            { name: "醬燒雞腿蛋堡", price: 75 },
+            { name: "金蝦黑堡", price: 85 },
+            { name: "起飛嫩雞堡", price: 85 },
+            { name: "雙層豬肉起司堡", price: 70 },
+            { name: "總匯蛋堡", price: 70 },
+            { name: "里肌蛋堡", price: 65 },
+            { name: "燻雞蛋堡", price: 60 },
+            { name: "香雞蛋堡", price: 60 },
+            { name: "薯餅蛋堡", price: 55 },
+            { name: "鮪魚蛋堡", price: 50 },
+            { name: "豬肉蛋堡", price: 50 },
+            { name: "培根蛋堡", price: 50 },
+            { name: "鮮蔬蛋堡", price: 40 },
+            // 套餐系列（價格已包含20元飲料）
+            { name: "美式脆雞堡套餐(原味)", price: 130 },
+            { name: "金蝦黑堡套餐", price: 125 },
+            { name: "起飛嫩雞堡套餐", price: 125 },
+            { name: "義式檸檬雞柳麵套餐(紅醬)", price: 120 },
+            { name: "招牌總匯套餐", price: 110 },
+            { name: "嫩煎里肌鐵板麺套餐(黑胡椒)", price: 100 }
+        ];
 
-            <h2>🔹 行銷策略</h2>
-            <ul>
-                <li>📢 數位廣告 - Facebook & Google 廣告</li>
-                <li>📰 公關媒體 - 電視、新聞專訪，提高品牌信任</li>
-                <li>📱 社群經營 - LINE 官方帳號、Instagram、YouTube 推廣</li>
-                <li>🎟️ 推薦機制 - 用戶邀請新客送折扣</li>
-                <li>💼 異業合作 - 房東、租屋平台、物業管理公司聯盟</li>
-                <li>📝 SEO 內容 - 經營部落格，教育市場</li>
-            </ul>
-        </div>
+        // 飲料資料（僅列出中杯價格，其他杯型根據規則計算）
+        const drinks = [
+            { name: "紅茶", price: 20, sizeRules: [5, 10] }, // 中杯+5=大杯, 大杯+10=特大杯
+            { name: "無糖綠茶", price: 20, sizeRules: [5, 10] },
+            { name: "豆漿", price: 20, sizeRules: [5, 10] },
+            { name: "米漿", price: 20, sizeRules: [5, 10] },
+            { name: "柳橙汁", price: 20, sizeRules: [5, 10] },
+            { name: "奶茶", price: 25, sizeRules: [5, 10] },
+            { name: "豆奶茶", price: 25, sizeRules: [15, 5] },
+            { name: "鮮奶茶", price: 35, sizeRules: [10, 10] },
+            { name: "拿鐵咖啡", price: 60, sizeRules: [10, 10] },
+            { name: "美式咖啡", price: 45, sizeRules: [10, 10] },
+            { name: "鴛鴦奶茶", price: 40, sizeRules: [10, 10] },
+            { name: "鲜奶", price: 55, sizeRules: [0, 0] } // 僅中杯
+        ];
 
-        <!-- 系統架構 & 服務流程 -->
-        <div id="system" class="section">
-            <h2>🔹 服務流程</h2>
-            <ul>
-                <li>📍 Step 1 - 用戶註冊 & 訂閱方案</li>
-                <li>📍 Step 2 - 設定收垃圾頻率、地點、方式</li>
-                <li>📍 Step 3 - 當日垃圾收取提醒</li>
-                <li>📍 Step 4 - 收取員上門取件 & 拍照確認</li>
-                <li>📍 Step 5 - 服務完成，發送通知</li>
-                <li>📍 Step 6 - 用戶可評價 & 調整下次收取時間</li>
-            </ul>
-        </div>
+        const sizes = ["中杯", "大杯", "特大杯"];
 
-        <!-- 核心流程圖 -->
-        <div id="flow" class="section">
-            <h2>📌 視覺化總覽：商業模式系統架構</h2>
+        function getRandomItem(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
 
-            <h3>📊 核心流程圖</h3>
-            <p>[📢 廣告投放] → [🌐 用戶註冊 & 訂閱] → [📦 設定垃圾收取時間]</p>
-            <p>→ [🚛 收取員派遣] → [📷 照片確認] → [📬 服務完成通知]</p>
-            <p>→ [📝 評價 & 續訂] → [🔄 會員推薦]</p>
+        function calculateDrinkPrice(drink, sizeIndex) {
+            if (sizeIndex === 0) return drink.price; // 中杯
+            if (sizeIndex === 1) return drink.price + drink.sizeRules[0]; // 大杯
+            if (drink.name === "鲜奶") return drink.price; // 鮮奶無大杯或特大杯
+            return drink.price + drink.sizeRules[0] + drink.sizeRules[1]; // 特大杯
+        }
 
-            <h3>📊 技術架構</h3>
-            <p>[📱 前端 Web & RWD] → [💳 綠界支付] → [🛠 智慧排程派工]</p>
-            <p>→ [📡 收取員 App] → [📊 數據分析 & AI 優化]</p>
-        </div>
-    </main>
+        function generateBreakfast() {
+            let totalPrice = 0;
+            let meal, drink, drinkSizeIndex;
+
+            do {
+                meal = getRandomItem(meals);
+                drink = getRandomItem(drinks);
+                // 隨機選擇杯型，但鮮奶只有中杯
+                drinkSizeIndex = drink.name === "鲜奶" ? 0 : Math.floor(Math.random() * 3);
+                totalPrice = meal.price + calculateDrinkPrice(drink, drinkSizeIndex);
+
+                // 套餐已包含20元飲料，若選其他飲料需補差價
+                if (meal.name.includes("套餐")) {
+                    const drinkExtra = calculateDrinkPrice(drink, drinkSizeIndex) - 20;
+                    totalPrice = meal.price + (drinkExtra > 0 ? drinkExtra : 0);
+                }
+            } while (totalPrice > 150);
+
+            const drinkSize = sizes[drinkSizeIndex];
+            const drinkPrice = calculateDrinkPrice(drink, drinkSizeIndex);
+            const result = `
+                <p><strong>餐點:</strong> ${meal.name} - ${meal.price} 元</p>
+                <p><strong>飲料:</strong> ${drink.name} (${drinkSize}) - ${drinkPrice} 元</p>
+                <p><strong>總價格:</strong> ${totalPrice} 元</p>
+            `;
+            document.getElementById("result").innerHTML = result;
+        }
+
+        // 頁面載入時生成一次
+        window.onload = generateBreakfast;
+    </script>
 </body>
 </html>
