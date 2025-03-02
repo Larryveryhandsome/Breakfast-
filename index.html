@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>弘爺漢堡宜蘭轉運店早餐隨機選擇器</title>
+  <title>宜蘭轉運店
+
+地址宜蘭縣宜蘭市校舍路64號
+
+電話03-9371522早餐隨機選擇器</title>
   <style>
     :root {
       --color-primary: #314A4E; /* 鐵藍色 */
@@ -28,7 +32,6 @@
       margin-bottom: 1rem;
       border-radius: 5px;
     }
-    /* 篩選區域樣式 */
     .filter-group {
       display: flex;
       flex-wrap: wrap;
@@ -49,11 +52,9 @@
       padding: 0.2rem 0.4rem;
       font-size: 1rem;
     }
-    /* 顯示滑桿值的字體樣式 */
     #priceValue {
       font-weight: bold;
     }
-    /* 按鈕樣式 */
     #randomBtn {
       background-color: var(--color-primary);
       color: #FFFFFF;
@@ -67,7 +68,6 @@
     #randomBtn:hover {
       opacity: 0.9;
     }
-    /* 結果顯示區樣式 */
     #result {
       background-color: var(--color-accent);
       padding: 1rem;
@@ -110,7 +110,6 @@
       font-style: italic;
       color: #555;
     }
-    /* 加購選項 (核取方塊) 樣式 */
     .addons-controls {
       margin-top: 0.5rem;
     }
@@ -124,7 +123,6 @@
       margin-right: 0.2rem;
       cursor: pointer;
     }
-    /* 收藏和最近清單樣式 */
     .lists {
       display: flex;
       gap: 2rem;
@@ -147,12 +145,25 @@
     }
     .list-section li {
       padding: 0.2rem 0;
-      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .list-section li:hover {
+    .list-section li:hover span.combo-text {
       text-decoration: underline;
     }
-    /* 淡入動畫效果 */
+    .delete-btn {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .delete-btn:hover {
+      background-color: #e60000;
+    }
     .fade-in {
       animation: fadeIn 0.5s ease-in;
     }
@@ -160,7 +171,6 @@
       0% { opacity: 0; transform: translateY(-5px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    /* 響應式調整 */
     @media (max-width: 600px) {
       .filter-group {
         flex-direction: column;
@@ -177,7 +187,6 @@
         flex-direction: column;
       }
     }
-    /* 自訂範圍滑桿樣式 */
     input[type="range"] {
       -webkit-appearance: none;
       appearance: none;
@@ -258,7 +267,6 @@
   <script>
     // 餐點與飲料資料
     const meals = [
-      // 套餐系列
       { name: "美式奔牛堡套餐(奔牛+起司+脆皮堡+細薯)", price: 155, category: "套餐" },
       { name: "華夫鬆餅套餐(鬆餅+培根+嫩蛋+星星魚塊+生菜沙拉)", price: 145, category: "套餐" },
       { name: "美式脆雞堡套餐(辣味咔滋雞腿+脆皮堡+細薯)", price: 130, category: "套餐" },
@@ -281,7 +289,6 @@
       { name: "嫩煎里肌鐵板麺套餐(里肌肉+荷包蛋+黑胡椒鐵板麵)", price: 100, category: "套餐" },
       { name: "嫩煎里肌鐵板麺套餐(里肌肉+荷包蛋+蘑菇鐵板麵)", price: 100, category: "套餐" },
       { name: "嫩煎里肌鐵板麺套餐(里肌肉+荷包蛋+咖哩鐵板麵)", price: 100, category: "套餐" },
-      // 漢堡系列
       { name: "奔牛起司堡", price: 115, category: "漢堡" },
       { name: "雙層牛肉起司堡", price: 110, category: "漢堡" },
       { name: "牛肉起司堡", price: 85, category: "漢堡" },
@@ -304,7 +311,6 @@
       { name: "豬肉蛋堡", price: 50, category: "漢堡" },
       { name: "培根蛋堡", price: 50, category: "漢堡" },
       { name: "鮮蔬蛋堡", price: 40, category: "漢堡" },
-      // 烤吐司系列
       { name: "原味咔滋雞腿總匯", price: 95, category: "烤吐司" },
       { name: "辣味咔滋雞腿總匯", price: 80, category: "烤吐司" },
       { name: "里肌總匯", price: 80, category: "烤吐司" },
@@ -327,7 +333,6 @@
       { name: "肉鬆蛋", price: 40, category: "烤吐司" },
       { name: "起司蛋", price: 40, category: "烤吐司" },
       { name: "鮮蔬蛋", price: 35, category: "烤吐司" },
-      // 美味小點
       { name: "生菜沙拉", price: 60, category: "其他" },
       { name: "總匯披薩", price: 55, category: "其他" },
       { name: "夏威夷披薩", price: 55, category: "其他" },
@@ -352,7 +357,6 @@
       { name: "薯泥一球", price: 30, category: "其他" },
       { name: "熱狗", price: 35, category: "其他" },
       { name: "荷包蛋", price: 15, category: "其他" },
-      // 乳酪餅系列
       { name: "里肌乳酪餅", price: 75, category: "其他" },
       { name: "鮪魚乳酪餅", price: 65, category: "其他" },
       { name: "培根乳酪餅", price: 60, category: "其他" },
@@ -365,7 +369,6 @@
       { name: "巧克力果醬乳酪餅", price: 35, category: "其他" },
       { name: "可可奶酥果醬乳酪餅", price: 40, category: "其他" },
       { name: "抹茶奶酥果醬乳酪餅", price: 40, category: "其他" },
-      // 帕瑪森系列
       { name: "牛肉起司帕瑪森", price: 105, category: "其他" },
       { name: "德式香腸帕瑪森", price: 105, category: "其他" },
       { name: "義式雞腿帕瑪森", price: 95, category: "其他" },
@@ -373,7 +376,6 @@
       { name: "洋蔥鮪魚帕瑪森", price: 85, category: "其他" },
       { name: "薯泥沙拉帕瑪森", price: 85, category: "其他" },
       { name: "火腿/培根帕瑪森", price: 85, category: "其他" },
-      // 鐵板麵加蛋系列
       { name: "紅醬鐵板麵加蛋", price: 70, category: "其他" },
       { name: "青醬鐵板麵加蛋", price: 70, category: "其他" },
       { name: "白醬鐵板麵加蛋", price: 70, category: "其他" },
@@ -384,14 +386,12 @@
       { name: "蘑菇鐵板麵加蛋", price: 65, category: "其他" },
       { name: "黑胡椒鐵板麵加蛋", price: 65, category: "其他" },
       { name: "咖哩鐵板麵加蛋", price: 65, category: "其他" },
-      // 燒餅加蛋系列
       { name: "哈辣雞腿燒餅加蛋", price: 85, category: "其他" },
       { name: "義式雞腿燒餅加蛋", price: 80, category: "其他" },
       { name: "嫩煎里肌燒餅加蛋", price: 75, category: "其他" },
       { name: "香燻雞排燒餅加蛋", price: 70, category: "其他" },
       { name: "薯泥沙拉燒餅加蛋", price: 70, category: "其他" },
       { name: "鮮蔬沙拉燒餅加蛋", price: 65, category: "其他" },
-      // 捲餅加蛋系列
       { name: "咔滋雞腿捲餅加蛋", price: 90, category: "其他" },
       { name: "德式香腸捲餅加蛋", price: 90, category: "其他" },
       { name: "嫩煎里肌捲餅加蛋", price: 85, category: "其他" },
@@ -399,7 +399,6 @@
       { name: "檸檬雞柳捲餅加蛋", price: 75, category: "其他" },
       { name: "葫魚/培根捲餅加蛋", price: 75, category: "其他" },
       { name: "薯泥沙拉捲餅加蛋", price: 70, category: "其他" },
-      // 果醬系列
       { name: "牛奶糖湯種厚片", price: 50, category: "其他" },
       { name: "OREO湯種厚片", price: 50, category: "其他" },
       { name: "草莓果醬厚片", price: 30, category: "其他" },
@@ -410,12 +409,10 @@
       { name: "香蒜果醬厚片", price: 30, category: "其他" },
       { name: "巧克力果醬厚片", price: 30, category: "其他" },
       { name: "抹茶奶酥果醬厚片", price: 35, category: "其他" },
-      // 鬆餅
       { name: "鬆餅草莓", price: 40, category: "其他" },
       { name: "鬆餅蜂蜜", price: 40, category: "其他" },
       { name: "鬆餅花生", price: 40, category: "其他" },
       { name: "鬆餅巧克力", price: 40, category: "其他" },
-      // 果醬薄片
       { name: "草莓果醤薄片", price: 20, category: "其他" },
       { name: "奶油果醤薄片", price: 20, category: "其他" },
       { name: "可可奶酥果醤薄片", price: 25, category: "其他" },
@@ -424,7 +421,6 @@
       { name: "抹茶奶酥果醤薄片", price: 25, category: "其他" },
       { name: "巧克力果醤薄片", price: 20, category: "其他" },
       { name: "奶酥果醤薄片", price: 20, category: "其他" },
-      // 蛋餅系列
       { name: "里肌蛋餅", price: 50, category: "蛋餅" },
       { name: "燻雞蛋餅", price: 50, category: "蛋餅" },
       { name: "鮪魚蛋餅", price: 50, category: "蛋餅" },
@@ -438,13 +434,11 @@
       { name: "原味蛋餅", price: 30, category: "蛋餅" }
     ];
     const drinks = [
-      // 特調、研磨咖啡系列
       { name: "拿鐵咖啡", price: 60, type: "咖啡" },
       { name: "特調咖啡", price: 50, type: "咖啡" },
       { name: "美式咖啡", price: 45, type: "咖啡" },
       { name: "鴛鴦奶茶", price: 40, type: "茶" },
       { name: "鮮奶", price: 55, type: "其他" },
-      // 飲料系列
       { name: "紅茶", price: 20, type: "茶" },
       { name: "無糖綠茶", price: 20, type: "茶" },
       { name: "豆漿", price: 20, type: "其他" },
@@ -499,7 +493,6 @@
       const category = categorySelect.value;
       const drinkType = drinkSelect.value;
       const maxPrice = Number(maxPriceInput.value);
-      // 篩選餐點與飲料清單
       let filteredMeals = meals;
       let filteredDrinks = drinks;
       if (category) {
@@ -508,7 +501,6 @@
       if (drinkType) {
         filteredDrinks = drinks.filter(d => d.type === drinkType);
       }
-      // 蒐集所有符合價格上限的組合
       const possibleCombos = [];
       for (let m of filteredMeals) {
         for (let d of filteredDrinks) {
@@ -518,15 +510,12 @@
         }
       }
       if (possibleCombos.length === 0) {
-        // 找不到符合的組合
         resultDiv.innerHTML = '<p class="empty-msg">找不到符合篩選條件的組合。</p>';
         currentSelection = null;
         return;
       }
-      // 隨機選取組合
       const randIndex = Math.floor(Math.random() * possibleCombos.length);
       const combo = possibleCombos[randIndex];
-      // 建立當前選擇物件，保留此前的加購選項狀態（如有）
       currentSelection = {
         mealName: combo.meal.name,
         mealPrice: combo.meal.price,
@@ -535,14 +524,12 @@
         addEgg: !!(currentSelection && currentSelection.addEgg),
         addCheese: !!(currentSelection && currentSelection.addCheese)
       };
-      // 顯示選擇結果並更新最近清單
       displaySelection(currentSelection);
       addToRecents(currentSelection);
     }
     // 在結果區塊呈現當前選擇的組合
     function displaySelection(selection) {
       const isFav = isFavoriteCombo(selection);
-      // 構建結果顯示的 HTML 結構
       let resultHTML = '<div class="result-header">';
       resultHTML += '<h3 class="combo-title">' + selection.mealName + ' + ' + selection.drinkName + '</h3>';
       resultHTML += '<button id="favToggle">' + (isFav ? '★ 收藏' : '☆ 收藏') + '</button>';
@@ -555,7 +542,6 @@
       resultHTML += '</div>';
       resultHTML += '<div class="price-breakdown" id="breakdown"></div>';
       resultDiv.innerHTML = resultHTML;
-      // 取得新插入的元素並綁定事件
       const favToggleBtn = document.getElementById('favToggle');
       const addEggCheckbox = document.getElementById('addEgg');
       const addCheeseCheckbox = document.getElementById('addCheese');
@@ -570,9 +556,7 @@
         currentSelection.addCheese = addCheeseCheckbox.checked;
         updateBreakdown();
       });
-      // 顯示價格明細
       updateBreakdown();
-      // 動畫顯示結果
       resultDiv.classList.remove('fade-in');
       void resultDiv.offsetWidth;
       resultDiv.classList.add('fade-in');
@@ -597,7 +581,6 @@
       }
       breakdownHTML += '<p class="total">總計: ' + total + ' 元</p>';
       breakdownEl.innerHTML = breakdownHTML;
-      // 更新收藏圖示（如果加購選項改變組合狀態）
       const favToggleBtn = document.getElementById('favToggle');
       if (favToggleBtn) {
         favToggleBtn.textContent = (isFavoriteCombo(currentSelection) ? '★ 收藏' : '☆ 收藏');
@@ -622,14 +605,11 @@
         f.addCheese === currentSelection.addCheese
       );
       if (index >= 0) {
-        // 已收藏：移除收藏
         favorites.splice(index, 1);
       } else {
-        // 未收藏：加入收藏
         favorites.push({ ...currentSelection });
       }
       localStorage.setItem('breakfast_favorites', JSON.stringify(favorites));
-      // 更新收藏按鈕圖示和收藏列表
       const favToggleBtn = document.getElementById('favToggle');
       if (favToggleBtn) {
         favToggleBtn.textContent = (index >= 0 ? '☆ 收藏' : '★ 收藏');
@@ -647,7 +627,6 @@
           last.addEgg === selection.addEgg && 
           last.addCheese === selection.addCheese
         ) {
-          // 若與上一筆相同則不重複新增
         } else {
           recents.unshift({ ...selection });
         }
@@ -659,14 +638,14 @@
       }
       renderRecentsList();
     }
-    // 渲染收藏清單
+    // 渲染收藏清單並新增刪除按鈕
     function renderFavoritesList() {
       favoritesListEl.innerHTML = '';
       if (favorites.length === 0) {
         favEmptyMsg.style.display = 'block';
       } else {
         favEmptyMsg.style.display = 'none';
-        favorites.forEach(item => {
+        favorites.forEach((item, index) => {
           const li = document.createElement('li');
           let desc = item.mealName + ' + ' + item.drinkName;
           if (item.addEgg || item.addCheese) {
@@ -678,12 +657,26 @@
           }
           const total = item.mealPrice + item.drinkPrice + (item.addEgg ? 15 : 0) + (item.addCheese ? 10 : 0);
           desc += ' - ' + total + ' 元';
-          li.textContent = desc;
-          // 點擊收藏項目載入該組合
-          li.addEventListener('click', () => {
+          
+          const textSpan = document.createElement('span');
+          textSpan.textContent = desc;
+          textSpan.className = 'combo-text';
+          textSpan.addEventListener('click', () => {
             displaySelection({ ...item });
             addToRecents(item);
           });
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.textContent = '刪除';
+          deleteBtn.className = 'delete-btn';
+          deleteBtn.addEventListener('click', () => {
+            favorites.splice(index, 1);
+            localStorage.setItem('breakfast_favorites', JSON.stringify(favorites));
+            renderFavoritesList();
+          });
+
+          li.appendChild(textSpan);
+          li.appendChild(deleteBtn);
           favoritesListEl.appendChild(li);
         });
       }
@@ -708,7 +701,6 @@
           const total = item.mealPrice + item.drinkPrice + (item.addEgg ? 15 : 0) + (item.addCheese ? 10 : 0);
           desc += ' - ' + total + ' 元';
           li.textContent = desc;
-          // 點擊最近項目載入該組合
           li.addEventListener('click', () => {
             displaySelection({ ...item });
             addToRecents(item);
